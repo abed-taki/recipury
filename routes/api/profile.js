@@ -89,8 +89,11 @@ router.get("/all", (req, res) => {
 // access   private
 router.post(
   "/",
+
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    //upload
+
     // validation
     const { errors, isValid } = validateProfileInput(req.body);
     if (!isValid) {
