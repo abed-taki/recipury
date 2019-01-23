@@ -14,6 +14,13 @@ const RecipeSchema = new Schema({
   name: {
     type: String
   },
+  time: {
+    type: Number
+  },
+  recipeImage: {
+    type: String,
+    default: "https://via.placeholder.com/200"
+  },
   likes: [
     {
       user: {

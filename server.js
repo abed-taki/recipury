@@ -6,8 +6,6 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const recipes = require("./routes/api/recipes");
-const profileImage = require("./routes/api/profileImage");
-const recipeImage = require("./routes/api/recipeImage");
 
 const app = express();
 
@@ -37,8 +35,6 @@ mongoose
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/recipes", recipes);
-app.use("/api/profileImage", profileImage);
-app.use("/api/recipeImage", recipeImage);
 
 const port = process.env.PORT || 5000;
 

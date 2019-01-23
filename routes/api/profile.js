@@ -1,6 +1,8 @@
 const express = require("express");
 const passport = require("passport");
 const mongoose = require("mongoose");
+const multer = require("multer");
+const path = require("path");
 
 const router = express.Router();
 
@@ -8,6 +10,38 @@ const router = express.Router();
 const Profile = require("../../models/Profile");
 // load validation
 const validateProfileInput = require("../../validation/profile");
+
+//upload image
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now().toString() + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // allowed extensions
+  const fileTypes = /jpeg|jpg|png/;
+  //check
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  //check mimetype
+  const mimetype = fileTypes.test(file.mimetype);
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    return cb(new Error("Only images allowed"));
+  }
+};
+
+const upload = multer({
+  storage,
+  limits: { fieldSize: 1024 * 1024 * 2 },
+  fileFilter
+});
+
+// *************
 
 // route    api/profile
 // desc     get logged user profile
@@ -91,6 +125,7 @@ router.post(
   "/",
 
   passport.authenticate("jwt", { session: false }),
+  upload.single("profileImage"),
   (req, res) => {
     //upload
 
@@ -110,6 +145,11 @@ router.post(
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
     if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
     if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
+    if (req.file) {
+      profileFields.profileImage = req.file.path;
+    } else {
+      profileFields.profileImage = "https://via.placeholder.com/200";
+    }
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {

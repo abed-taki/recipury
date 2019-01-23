@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const multer = require("multer");
+const path = require("path");
 
 //load recipe model
 const Recipe = require("../../models/Recipe");
@@ -11,10 +13,36 @@ const validateRecipeInput = require("../../validation/recipe");
 
 const router = express.Router();
 
-// route    api/recipes/test
-// desc     test
-// access   public
-router.get("/test", (req, res) => res.json({ msg: "recipes works" }));
+// uploading
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now().toString() + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // allowed extensions
+  const fileTypes = /jpeg|jpg|png/;
+  //check
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  //check mimetype
+  const mimetype = fileTypes.test(file.mimetype);
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    return cb(new Error("Only images allowed"));
+  }
+};
+
+const upload = multer({
+  storage,
+  limits: { fieldSize: 1024 * 1024 * 2 },
+  fileFilter
+});
+// ******************
 
 // route    api/recipes
 // desc     create recipe
@@ -22,19 +50,32 @@ router.get("/test", (req, res) => res.json({ msg: "recipes works" }));
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
+  upload.single("recipeImage"),
   (req, res) => {
     // validation
     const { errors, isValid } = validateRecipeInput(req.body);
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    const newRecipe = new Recipe({
+
+    const newRecipe = {
       text: req.body.text,
+      time: req.body.time,
       name: req.body.name,
       user: req.user.id
-    });
+    };
 
-    newRecipe.save().then(recipe => res.json(recipe));
+    if (req.file) {
+      newRecipe.recipeImage = req.file.path;
+    } else {
+      newRecipe.recipeImage = "https://via.placeholder.com/200";
+    }
+
+    // save to database
+    new Recipe(newRecipe)
+      .save()
+      .then(recipe => res.json(recipe))
+      .catch(err => res.status(400).json(err));
   }
 );
 

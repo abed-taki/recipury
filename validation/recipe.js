@@ -14,6 +14,10 @@ module.exports = validateRecipeInput = data => {
     errors.text = "Text field is required";
   }
 
+  if (!isEmpty(data.time) && !Validator.isNumeric(data.time)) {
+    errors.time = "Cooking Time shoud be a number";
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)
