@@ -5,8 +5,8 @@ import register from "../../img/register.jpg";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import classnames from "classnames";
 import { registerUser } from "../../actions/authActions";
+import InputField from "../common/InputField";
 
 class Register extends Component {
   constructor() {
@@ -64,74 +64,40 @@ class Register extends Component {
           </div>
           <div className="register__form">
             <form noValidate onSubmit={this.onSubmit}>
-              <div>
-                <input
-                  type="text"
-                  className={classnames("register__input", {
-                    invalid: errors.name
-                  })}
-                  placeholder="Name"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.onChange}
-                />
-                <div className="error">
-                  {errors ? <p className="error-class">{errors.name}</p> : ""}
-                </div>
-              </div>
-              <div>
-                <input
-                  type="email"
-                  className={classnames("register__input", {
-                    invalid: errors.email
-                  })}
-                  placeholder="Email"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                />
-                <div className="error">
-                  {errors ? <p className="error-class">{errors.email}</p> : ""}
-                </div>
-              </div>
-              <div>
-                <input
-                  type="password"
-                  className={classnames("register__input", {
-                    invalid: errors.password
-                  })}
-                  placeholder="Password"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                />
-                <div className="error">
-                  {errors ? (
-                    <p className="error-class">{errors.password}</p>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-              <div>
-                <input
-                  type="password"
-                  className={classnames("register__input", {
-                    invalid: errors.password2
-                  })}
-                  placeholder="Confirm Password"
-                  name="password2"
-                  value={this.state.password2}
-                  onChange={this.onChange}
-                />
-                <div className="error">
-                  {errors ? (
-                    <p className="error-class">{errors.password2}</p>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
+              <InputField
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={this.state.name}
+                onChange={this.onChange}
+                error={errors.name}
+              />
+              <InputField
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.onChange}
+                error={errors.email}
+              />
+
+              <InputField
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.onChange}
+                error={errors.password}
+              />
+              <InputField
+                type="password"
+                name="password2"
+                placeholder="Confirm Password"
+                value={this.state.password2}
+                onChange={this.onChange}
+                error={errors.password2}
+              />
+
               <input type="submit" className="register__btn" value="Sign Up" />
             </form>
             <p className="register__text">

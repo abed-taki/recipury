@@ -573,7 +573,7 @@ body {
   width: 40rem;
   height: 5rem;
   border-radius: 5px;
-  border: 2px solid #ff5c80;
+  border: 1px solid #ff5c80;
   margin: 1rem auto;
   padding: 0rem 2rem;
   box-sizing: border-box;
@@ -659,7 +659,7 @@ body {
   width: 40rem;
   height: 5rem;
   border-radius: 5px;
-  border: 2px solid #ff5c80;
+  border: 1px solid #ff5c80;
   margin: 1rem auto;
   padding: 0rem 2rem;
   box-sizing: border-box;
@@ -1022,4 +1022,12 @@ body {
 .error-class {
   font-size: 1.3rem;
   color: #ff5c80;
+}
+
+.actions {
+  text-align: right;
+  padding: 2rem;
+}
+.actions__primary {
+  margin-right: 3rem;
 }

@@ -13,7 +13,8 @@ const ProfileSchema = new Schema({
     max: 30
   },
   profileImage: {
-    type: String
+    type: String,
+    default: "uploads\\profile.jpg"
   },
   status: {
     type: String,

@@ -6,14 +6,21 @@ import {
   logoutUser
 } from "./actions/authActions";
 import jwt_decode from "jwt-decode";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
+
+import PrivateRoute from "./components/common/PrivateRoute";
 
 // components
 import Home from "./components/layout/Home";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import Dashboard from "./components/dashboard/Dashboard";
+import { clearCurrentProfile } from "./actions/profileActions";
+import CreateProfile from "./components/profile/CreateProfile";
+import EditProfile from "./components/profile/EditProfile";
+import Profile from "./components/profile/Profile";
 
 // set header for every page request
 const token = localStorage.jwtToken;
@@ -30,7 +37,8 @@ if (token) {
   if (decoded.exp < currentTime) {
     // logout user
     store.dispatch(logoutUser());
-    // TODO : clear profile
+    // clear profile
+    store.dispatch(clearCurrentProfile());
     //redirect to login
     window.location.href = "/login";
   }
@@ -42,9 +50,23 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/profile/:handle" component={Profile} />
+              <PrivateRoute exact path="/Dashboard" component={Dashboard} />
+              <PrivateRoute
+                exact
+                path="/create-profile"
+                component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path="/edit-profile"
+                component={EditProfile}
+              />
+            </Switch>
           </div>
         </Router>
       </Provider>

@@ -19,7 +19,7 @@ const RecipeSchema = new Schema({
   },
   recipeImage: {
     type: String,
-    default: "https://via.placeholder.com/200"
+    default: "uploads\\recipe.jpg"
   },
   likes: [
     {

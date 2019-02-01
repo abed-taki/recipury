@@ -145,11 +145,7 @@ router.post(
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
     if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
     if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
-    if (req.file) {
-      profileFields.profileImage = req.file.path;
-    } else {
-      profileFields.profileImage = "https://via.placeholder.com/200";
-    }
+    if (req.file) profileFields.profileImage = req.file.path;
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {

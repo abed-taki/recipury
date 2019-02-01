@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../actions/authActions";
+import { clearCurrentProfile } from "../../actions/profileActions";
 
 import { connect } from "react-redux";
 
 class Navbar extends Component {
   onlogoutClick = e => {
     e.preventDefault();
+    this.props.clearCurrentProfile();
     this.props.logoutUser();
   };
 
@@ -18,11 +20,6 @@ class Navbar extends Component {
         <li className="navigation__item">
           <Link to="/recipes" className="navigation__link">
             Recipes
-          </Link>
-        </li>
-        <li className="navigation__item">
-          <Link to="/creators" className="navigation__link">
-            Creators
           </Link>
         </li>
         <li className="navigation__item">
@@ -51,11 +48,6 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="navigation--small__item">
-          <Link to="/creators" className="navigation--small__link">
-            Creators
-          </Link>
-        </li>
-        <li className="navigation--small__item">
           <Link to="/about" className="navigation--small__link">
             About
           </Link>
@@ -76,13 +68,13 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navigation">
         <li className="navigation__item">
-          <Link to="/recipes" className="navigation__link">
-            Recipes
+          <Link to="/dashboard" className="navigation__link">
+            Dashboard
           </Link>
         </li>
         <li className="navigation__item">
-          <Link to="/creators" className="navigation__link">
-            Creators
+          <Link to="/recipes" className="navigation__link">
+            Recipes
           </Link>
         </li>
         <li className="navigation__item">
@@ -105,13 +97,13 @@ class Navbar extends Component {
     const authLinksSmall = (
       <ul className="navigation--small__list">
         <li className="navigation--small__item">
-          <Link to="/recipes" className="navigation--small__link">
-            Recipes
+          <Link to="/dashboard" className="navigation--small__link">
+            Dashboard
           </Link>
         </li>
         <li className="navigation--small__item">
-          <Link to="/creators" className="navigation--small__link">
-            Creators
+          <Link to="/recipes" className="navigation--small__link">
+            Recipes
           </Link>
         </li>
         <li className="navigation--small__item">
@@ -179,5 +171,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, clearCurrentProfile }
 )(Navbar);

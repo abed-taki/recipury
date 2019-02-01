@@ -4,8 +4,8 @@ import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
 import login from "../../img/login.jpg";
 import { Link } from "react-router-dom";
-import classnames from "classnames";
 import { loginUser } from "../../actions/authActions";
+import InputField from "../common/InputField";
 
 class Login extends Component {
   constructor() {
@@ -65,45 +65,22 @@ class Login extends Component {
             </div>
             <div className="login__form">
               <form onSubmit={this.onSubmit}>
-                <div>
-                  <input
-                    type="email"
-                    className={classnames("login__input", {
-                      invalid: errors.email
-                    })}
-                    placeholder="Email"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                  <div className="error">
-                    {errors ? (
-                      <p className="error-class">{errors.email}</p>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <input
-                    type="password"
-                    className={classnames("login__input", {
-                      invalid: errors.password
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  <div className="error">
-                    {errors ? (
-                      <p className="error-class">{errors.password}</p>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
+                <InputField
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  error={errors.email}
+                />
+                <InputField
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                  error={errors.password}
+                />
 
                 <input type="submit" className="login__btn" value="Sign In" />
               </form>
