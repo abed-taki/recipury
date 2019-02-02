@@ -197,9 +197,21 @@ class CreateProfile extends Component {
                 error={errors.instagram}
               />
             </div>
+            <h3
+              className="second-title"
+              style={{
+                fontSize: "18px",
+                marginBottom: "30px",
+                marginTop: "30px",
+                marginRight: "auto",
+                marginLeft: "0"
+              }}
+            >
+              Edit your profile image
+            </h3>
+            <input type="file" name="profileImage" onChange={this.onChange} />
+            <input type="submit" class="btn-submit" value="Next step" />
           </section>
-          <input type="file" name="profileImage" onChange={this.onChange} />
-          <input type="submit" class="btn-submit" value="Next step" />
         </form>
 
         <Footer />

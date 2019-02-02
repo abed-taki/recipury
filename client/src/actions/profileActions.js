@@ -64,6 +64,24 @@ export const getProfileByHandle = handle => dispatch => {
     );
 };
 
+// get profile bu id
+export const getProfileById = id => dispatch => {
+  axios
+    .get(`/api/profile/user/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: null
+      })
+    );
+};
+
 // clear profile
 export const clearCurrentProfile = () => {
   return {

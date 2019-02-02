@@ -7,11 +7,18 @@ const RecipeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
+  title: {
+    type: String,
+    required: true
+  },
   text: {
     type: String,
     required: true
   },
   name: {
+    type: String
+  },
+  handle: {
     type: String
   },
   time: {
@@ -38,6 +45,12 @@ const RecipeSchema = new Schema({
       text: {
         type: String,
         required: true
+      },
+      name: {
+        type: String
+      },
+      profileImage: {
+        type: String
       },
       date: {
         type: Date,

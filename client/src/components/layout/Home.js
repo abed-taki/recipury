@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import RecipeFeed from "../recipe/RecipeFeed";
 
 class Home extends Component {
   render() {
@@ -22,6 +23,7 @@ class Home extends Component {
             </Link>
           </div>
         </section>
+        <RecipeFeed />
         <Footer />
       </div>
     );

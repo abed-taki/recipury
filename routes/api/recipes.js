@@ -10,6 +10,7 @@ const Recipe = require("../../models/Recipe");
 const User = require("../../models/User");
 // load validation
 const validateRecipeInput = require("../../validation/recipe");
+const validateCommentInput = require("../../validation/comment");
 
 const router = express.Router();
 
@@ -59,17 +60,15 @@ router.post(
     }
 
     const newRecipe = {
+      title: req.body.title,
       text: req.body.text,
       time: req.body.time,
       name: req.body.name,
+      handle: req.body.handle,
       user: req.user.id
     };
 
-    if (req.file) {
-      newRecipe.recipeImage = req.file.path;
-    } else {
-      newRecipe.recipeImage = "https://via.placeholder.com/200";
-    }
+    if (req.file) newRecipe.recipeImage = req.file.path;
 
     // save to database
     new Recipe(newRecipe)
@@ -112,6 +111,7 @@ router.delete(
 router.get("/", (req, res) => {
   const errors = {};
   Recipe.find()
+
     .then(recipes => {
       if (!recipes) {
         errors.recipes = "There is no recipes";
@@ -128,6 +128,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const errors = {};
   Recipe.findById(req.params.id)
+
     .then(recipe => {
       if (!recipe) {
         errors.recipe = "There is no recipe! wrong URL";
@@ -185,7 +186,7 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     //validation
-    const { errors, isValid } = validateRecipeInput(req.body);
+    const { errors, isValid } = validateCommentInput(req.body);
     if (!isValid) {
       return res.status(400).json(errors);
     }
@@ -194,6 +195,7 @@ router.post(
         const newComment = {
           text: req.body.text,
           name: req.body.name,
+          profileImage: req.body.profileImage,
           user: req.user.id
         };
         // add to comment array

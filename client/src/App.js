@@ -21,6 +21,10 @@ import { clearCurrentProfile } from "./actions/profileActions";
 import CreateProfile from "./components/profile/CreateProfile";
 import EditProfile from "./components/profile/EditProfile";
 import Profile from "./components/profile/Profile";
+import AddRecipe from "./components/recipe/AddRecipe";
+import Feed from "./components/recipe/Feed";
+import Recipe from "./components/recipe/Recipe";
+import About from "./components/layout/About";
 
 // set header for every page request
 const token = localStorage.jwtToken;
@@ -54,7 +58,10 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/recipes" component={Feed} />
               <Route exact path="/profile/:handle" component={Profile} />
+              <Route exact path="/recipes/:id" component={Recipe} />
+              <Route exact path="/about" component={About} />
               <PrivateRoute exact path="/Dashboard" component={Dashboard} />
               <PrivateRoute
                 exact
@@ -66,6 +73,7 @@ class App extends Component {
                 path="/edit-profile"
                 component={EditProfile}
               />
+              <PrivateRoute exact path="/create-recipe" component={AddRecipe} />
             </Switch>
           </div>
         </Router>

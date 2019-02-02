@@ -12,6 +12,9 @@ const CreateField = ({
 }) => {
   return (
     <div>
+      <div className="error">
+        {error ? <p className="error-class">{error}</p> : ""}
+      </div>
       <input
         type={type}
         className={classnames("create__input", {
@@ -23,10 +26,6 @@ const CreateField = ({
         onChange={onChange}
       />
       <p className="create__info">{info}</p>
-
-      <div className="error">
-        {error ? <p className="error-class">{error}</p> : ""}
-      </div>
     </div>
   );
 };

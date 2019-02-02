@@ -204,6 +204,21 @@ body {
   line-height: 45px;
 }
 
+.btn-danger {
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #ff5c80;
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: #fff;
+  width: 120px;
+  line-height: 45px;
+  margin-bottom: 2rem;
+  border: none;
+}
+
 .btn-long {
   width: 180px;
   line-height: 50px;
@@ -272,10 +287,12 @@ body {
 
 .recipes {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   padding: 0 1rem;
 }
-@media only screen and (max-width: 50em) {
+
+@media only screen and (max-width: 60.625em) {
   .recipes {
     flex-wrap: wrap;
     justify-content: center;
@@ -288,17 +305,17 @@ body {
   background-color: #fff;
   box-shadow: 0px 2px 24px 0px rgba(245, 98, 103, 0.15);
   text-align: center;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
 }
 @media only screen and (max-width: 60.625em) {
   .recipe {
     max-width: 30rem;
-    margin-bottom: 2rem;
   }
 }
 @media only screen and (max-width: 50em) {
   .recipe {
     max-width: 44rem;
-    margin-bottom: 2rem;
   }
 }
 .recipe__img {
@@ -344,8 +361,16 @@ body {
   height: 18px;
   margin-right: 2rem;
 }
-.recipe__author {
+.recipe__author,
+.recipe__author:link,
+.recipe__author:visited {
+  color: #666;
   font-size: 1.4rem;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.recipe__author:hover {
+  color: #ff5c80;
 }
 
 .footer {
@@ -736,7 +761,7 @@ body {
 }
 .create__area {
   width: 50rem;
-  height: 4.8rem;
+  height: 20rem;
   display: block;
   font-size: 1.6rem;
   font-family: inherit;
@@ -898,6 +923,7 @@ body {
   margin-top: 2rem;
 }
 .post__heart {
+  cursor: pointer;
   width: 30px;
   height: 30px;
 }
@@ -920,6 +946,7 @@ body {
 .post__submit,
 .post__submit:link,
 .post__submit:visited {
+  cursor: pointer;
   width: 16rem;
   height: 4rem;
   background-color: #ff5c80;
@@ -975,9 +1002,11 @@ body {
   color: #ff5c80;
 }
 .comment__comment {
+  max-width: 50rem;
   background-color: #fff;
   font-size: 1.6rem;
   line-height: 1.6;
+  word-break: break-all;
   color: #666;
   padding: 2rem;
   margin-left: 4rem;
@@ -1030,4 +1059,10 @@ body {
 }
 .actions__primary {
   margin-right: 3rem;
+}
+
+.about {
+  margin: 12rem auto;
+  font-size: 1.8rem;
+  color: #666;
 }
