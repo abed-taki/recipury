@@ -14,8 +14,6 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/uploads", express.static("uploads"));
-
 //passport middleware
 app.use(passport.initialize());
 // passport config
@@ -42,6 +40,8 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+
+app.use("/uploads", express.static("uploads"));
 
 const port = process.env.PORT || 5000;
 
