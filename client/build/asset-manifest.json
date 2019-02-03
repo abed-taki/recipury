@@ -1,9 +1,9 @@
 {
-  "main.css": "/static/css/main.cb154f09.chunk.css",
-  "main.js": "/static/js/main.4d012b23.chunk.js",
-  "main.js.map": "/static/js/main.4d012b23.chunk.js.map",
-  "static/js/1.b68ad81a.chunk.js": "/static/js/1.b68ad81a.chunk.js",
-  "static/js/1.b68ad81a.chunk.js.map": "/static/js/1.b68ad81a.chunk.js.map",
+  "main.css": "/static/css/main.3820ebe3.chunk.css",
+  "main.js": "/static/js/main.6f024352.chunk.js",
+  "main.js.map": "/static/js/main.6f024352.chunk.js.map",
+  "static/js/1.f1b56213.chunk.js": "/static/js/1.f1b56213.chunk.js",
+  "static/js/1.f1b56213.chunk.js.map": "/static/js/1.f1b56213.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/App.css": "/static/media/bg.3db3ade8.jpg",
@@ -17,9 +17,10 @@
   "static/media/register.jpg": "/static/media/register.e93ca172.jpg",
   "static/media/heart.svg": "/static/media/heart.30d8dedc.svg",
   "static/media/heart-red.svg": "/static/media/heart-red.f7e16553.svg",
+  "static/media/register.png": "/static/media/register.b6dcdc78.png",
   "static/media/instagram.svg": "/static/media/instagram.83c8f90a.svg",
-  "static/css/main.cb154f09.chunk.css.map": "/static/css/main.cb154f09.chunk.css.map",
+  "static/css/main.3820ebe3.chunk.css.map": "/static/css/main.3820ebe3.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.61634fcc79c79c9ce52fdefad99ceb11.js": "/precache-manifest.61634fcc79c79c9ce52fdefad99ceb11.js",
+  "precache-manifest.e22bc5a0af73414a2f4bef66172803ec.js": "/precache-manifest.e22bc5a0af73414a2f4bef66172803ec.js",
   "service-worker.js": "/service-worker.js"
 }
