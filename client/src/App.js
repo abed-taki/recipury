@@ -25,6 +25,7 @@ import AddRecipe from "./components/recipe/AddRecipe";
 import Feed from "./components/recipe/Feed";
 import Recipe from "./components/recipe/Recipe";
 import About from "./components/layout/About";
+import NotFound from "./components/common/NotFound";
 
 // set header for every page request
 const token = localStorage.jwtToken;
@@ -74,6 +75,7 @@ class App extends Component {
                 component={EditProfile}
               />
               <PrivateRoute exact path="/create-recipe" component={AddRecipe} />
+              <Route component={NotFound} />
             </Switch>
           </div>
         </Router>

@@ -13,6 +13,12 @@ import instagram from "../../img/instagram.svg";
 import youtube from "../../img/youtube.svg";
 
 class Profile extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.profile.profile === null && this.props.profile.loading) {
+      this.props.history.push("/not-found");
+    }
+  }
+
   componentDidMount() {
     const handle = this.props.match.params.handle;
     if (handle) {
