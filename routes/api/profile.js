@@ -2,6 +2,8 @@ const express = require("express");
 const passport = require("passport");
 const mongoose = require("mongoose");
 const multer = require("multer");
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
 const path = require("path");
 
 const router = express.Router();
@@ -12,34 +14,20 @@ const Profile = require("../../models/Profile");
 const validateProfileInput = require("../../validation/profile");
 
 //upload image
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now().toString() + file.originalname);
-  }
+cloudinary.config({
+  cloud_name: require("../../config/keys").cloud_name,
+  api_key: require("../../config/keys").api_key,
+  api_secret: require("../../config/keys").api_secret
+});
+//* ************ cloudnary
+const storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "profile",
+  allowedFormats: ["jpg", "png"],
+  transformation: [{ width: 200, height: 200, crop: "limit" }]
 });
 
-const fileFilter = (req, file, cb) => {
-  // allowed extensions
-  const fileTypes = /jpeg|jpg|png/;
-  //check
-  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
-  //check mimetype
-  const mimetype = fileTypes.test(file.mimetype);
-  if (mimetype && extname) {
-    return cb(null, true);
-  } else {
-    return cb(new Error("Only images allowed"));
-  }
-};
-
-const upload = multer({
-  storage,
-  limits: { fieldSize: 1024 * 1024 * 2 },
-  fileFilter
-});
+const upload = multer({ storage: storage });
 
 // *************
 
@@ -127,8 +115,9 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   upload.single("profileImage"),
   (req, res) => {
-    //upload
-
+    const profileImage = {};
+    profileImage.url = req.file.url;
+    profileImage.id = req.file.public_id;
     // validation
     const { errors, isValid } = validateProfileInput(req.body);
     if (!isValid) {
@@ -145,7 +134,7 @@ router.post(
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
     if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
     if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
-    if (req.file) profileFields.profileImage = req.file.path;
+    if (req.file) profileFields.profileImage = profileImage.url;
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {

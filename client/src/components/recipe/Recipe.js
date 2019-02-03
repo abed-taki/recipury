@@ -82,7 +82,7 @@ class Recipe extends Component {
 
             <div className="post__img">
               <img
-                src={`../${recipe.recipeImage}`}
+                src={recipe.recipeImage}
                 alt="recipe"
                 className="post__img__img"
               />

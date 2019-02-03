@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const multer = require("multer");
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
 const path = require("path");
 
 //load recipe model
@@ -14,35 +16,21 @@ const validateCommentInput = require("../../validation/comment");
 
 const router = express.Router();
 
-// uploading
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now().toString() + file.originalname);
-  }
+// upload
+cloudinary.config({
+  cloud_name: require("../../config/keys").cloud_name,
+  api_key: require("../../config/keys").api_key,
+  api_secret: require("../../config/keys").api_secret
+});
+//* ************ cloudnary
+const storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "recipe",
+  allowedFormats: ["jpg", "png"],
+  transformation: [{ width: 450, height: 800, crop: "limit" }]
 });
 
-const fileFilter = (req, file, cb) => {
-  // allowed extensions
-  const fileTypes = /jpeg|jpg|png/;
-  //check
-  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
-  //check mimetype
-  const mimetype = fileTypes.test(file.mimetype);
-  if (mimetype && extname) {
-    return cb(null, true);
-  } else {
-    return cb(new Error("Only images allowed"));
-  }
-};
-
-const upload = multer({
-  storage,
-  limits: { fieldSize: 1024 * 1024 * 2 },
-  fileFilter
-});
+const upload = multer({ storage: storage });
 // ******************
 
 // route    api/recipes
@@ -53,7 +41,10 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   upload.single("recipeImage"),
   (req, res) => {
-    // validation
+    const recipeImage = {};
+    recipeImage.url = req.file.url;
+    recipeImage.id = req.file.public_id;
+    //validation
     const { errors, isValid } = validateRecipeInput(req.body);
     if (!isValid) {
       return res.status(400).json(errors);
@@ -68,7 +59,7 @@ router.post(
       user: req.user.id
     };
 
-    if (req.file) newRecipe.recipeImage = req.file.path;
+    if (req.file) newRecipe.recipeImage = recipeImage.url;
 
     // save to database
     new Recipe(newRecipe)

@@ -56,11 +56,7 @@ class Profile extends Component {
             <Navbar />
             <div className="container profile">
               <div className="profile__img">
-                <img
-                  src={`../${image}`}
-                  alt="profile"
-                  className="profile__img__img"
-                />
+                <img src={image} alt="profile" className="profile__img__img" />
               </div>
               <div className="profile__details">
                 <p className="profile__name">{profile.user.name}</p>
@@ -97,7 +93,7 @@ class Profile extends Component {
             <div className="container">
               <h2 className="second-title">Recipes by {profile.user.name}</h2>
             </div>
-            {recipeContent}
+            <div className="container recipes">{recipeContent}</div>
           </section>
 
           <Footer />
