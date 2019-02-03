@@ -1,7 +1,7 @@
 {
-  "main.css": "/static/css/main.3820ebe3.chunk.css",
-  "main.js": "/static/js/main.2e4eff98.chunk.js",
-  "main.js.map": "/static/js/main.2e4eff98.chunk.js.map",
+  "main.css": "/static/css/main.264eb46b.chunk.css",
+  "main.js": "/static/js/main.b5b5d3da.chunk.js",
+  "main.js.map": "/static/js/main.b5b5d3da.chunk.js.map",
   "static/js/1.f1b56213.chunk.js": "/static/js/1.f1b56213.chunk.js",
   "static/js/1.f1b56213.chunk.js.map": "/static/js/1.f1b56213.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
@@ -19,8 +19,8 @@
   "static/media/heart-red.svg": "/static/media/heart-red.f7e16553.svg",
   "static/media/register.png": "/static/media/register.b6dcdc78.png",
   "static/media/instagram.svg": "/static/media/instagram.83c8f90a.svg",
-  "static/css/main.3820ebe3.chunk.css.map": "/static/css/main.3820ebe3.chunk.css.map",
+  "static/css/main.264eb46b.chunk.css.map": "/static/css/main.264eb46b.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.b4066fcb59e677a284ce151df266d00b.js": "/precache-manifest.b4066fcb59e677a284ce151df266d00b.js",
+  "precache-manifest.8c7ee1823bf4649625d95b33c48a7d22.js": "/precache-manifest.8c7ee1823bf4649625d95b33c48a7d22.js",
   "service-worker.js": "/service-worker.js"
 }

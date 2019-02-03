@@ -61,8 +61,11 @@ export const loginUser = userData => dispatch => {
 export const logoutUser = () => dispatch => {
   // remove token from local storage
   localStorage.removeItem("jwtToken");
+
   // remove token from header
   setAuthToken(false);
   // reset user to {}
   dispatch(setCurrentUser({}));
+  //redirect to login
+  window.location.href = "/login";
 };

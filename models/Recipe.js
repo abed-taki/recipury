@@ -51,6 +51,9 @@ const RecipeSchema = new Schema({
       profileImage: {
         type: String
       },
+      handle: {
+        type: String
+      },
       date: {
         type: Date,
         default: Date.now

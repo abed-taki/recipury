@@ -56,7 +56,7 @@ export const getRecipes = () => dispatch => {
 };
 
 // get recipe by id
-export const getRecipeById = id => dispatch => {
+export const getRecipeById = (id, history) => dispatch => {
   dispatch(setRecipeLoading());
   axios
     .get(`/api/recipes/${id}`)
@@ -66,12 +66,7 @@ export const getRecipeById = id => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
-      dispatch({
-        type: GET_RECIPE,
-        payload: null
-      })
-    );
+    .catch(err => history.push("/not-found"));
 };
 
 // like arecipe

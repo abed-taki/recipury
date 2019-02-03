@@ -28,11 +28,15 @@ class Comment extends Component {
     e.preventDefault();
 
     const { id } = this.props;
+    const { user } = this.props.auth;
+
+    const { profile } = this.props.profile;
 
     const data = {
       text: this.state.text,
-      profileImage: this.props.profile.profile.profileImage,
-      name: this.props.auth.user.name
+      handle: profile.handle,
+      profileImage: profile.profileImage,
+      name: user.name
     };
 
     this.props.addComment(id, data);

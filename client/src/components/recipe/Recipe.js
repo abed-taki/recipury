@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   getRecipeById,
   likeRecipe,
@@ -17,7 +18,7 @@ class Recipe extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     if (id) {
-      this.props.getRecipeById(id);
+      this.props.getRecipeById(id, this.props.history);
     }
   }
 
@@ -40,12 +41,14 @@ class Recipe extends Component {
           <div className="comment__user">
             <div className="comment__img">
               <img
-                src={`../${comment.profileImage}`}
+                src={comment.profileImage}
                 alt="profile"
                 className="comment__img__img"
               />
             </div>
-            <p className="comment__name">{comment.name}</p>
+            <Link to={`../profile/${comment.handle}`} className="comment__name">
+              <p>{comment.name}</p>
+            </Link>
           </div>
 
           <p className="comment__comment">{comment.text}</p>
@@ -115,7 +118,13 @@ class Recipe extends Component {
               </p>
             </div>
             {comments}
-            <Comment id={recipe._id} />
+            {auth.isAuthenticated ? (
+              <Comment id={recipe._id} />
+            ) : (
+              <h1 style={{ fontSize: "18px" }} className="second-title">
+                <Link to="/login">Log in </Link> to comment on posts
+              </h1>
+            )}
           </section>
           {}
         </div>

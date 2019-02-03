@@ -210,7 +210,7 @@ class CreateProfile extends Component {
               Edit your profile image
             </h3>
             <input type="file" name="profileImage" onChange={this.onChange} />
-            <input type="submit" class="btn-submit" value="Next step" />
+            <input type="submit" className="btn-submit" value="Next step" />
           </section>
         </form>
 

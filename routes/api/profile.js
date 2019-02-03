@@ -115,9 +115,6 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   upload.single("profileImage"),
   (req, res) => {
-    const profileImage = {};
-    profileImage.url = req.file.url;
-    profileImage.id = req.file.public_id;
     // validation
     const { errors, isValid } = validateProfileInput(req.body);
     if (!isValid) {
@@ -134,7 +131,7 @@ router.post(
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
     if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
     if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
-    if (req.file) profileFields.profileImage = profileImage.url;
+    if (req.file) profileFields.profileImage = req.file.url;
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {

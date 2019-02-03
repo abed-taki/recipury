@@ -41,9 +41,6 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   upload.single("recipeImage"),
   (req, res) => {
-    const recipeImage = {};
-    recipeImage.url = req.file.url;
-    recipeImage.id = req.file.public_id;
     //validation
     const { errors, isValid } = validateRecipeInput(req.body);
     if (!isValid) {
@@ -59,7 +56,7 @@ router.post(
       user: req.user.id
     };
 
-    if (req.file) newRecipe.recipeImage = recipeImage.url;
+    if (req.file) newRecipe.recipeImage = req.file.url;
 
     // save to database
     new Recipe(newRecipe)
@@ -187,6 +184,7 @@ router.post(
           text: req.body.text,
           name: req.body.name,
           profileImage: req.body.profileImage,
+          handle: req.body.handle,
           user: req.user.id
         };
         // add to comment array
