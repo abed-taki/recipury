@@ -75,6 +75,7 @@ class App extends Component {
                 component={EditProfile}
               />
               <PrivateRoute exact path="/create-recipe" component={AddRecipe} />
+              <Route exact path="/not-found" component={NotFound} />
               <Route component={NotFound} />
             </Switch>
           </div>

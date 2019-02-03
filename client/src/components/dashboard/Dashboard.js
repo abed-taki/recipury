@@ -105,7 +105,7 @@ class Dashboard extends Component {
             <div className="container">
               <h2 className="second-title">Your Recipes</h2>
             </div>
-            {recipeContent}
+            <div className="container recipes">{recipeContent}</div>
           </section>
           <Footer />
         </div>

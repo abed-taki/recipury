@@ -13,16 +13,10 @@ import instagram from "../../img/instagram.svg";
 import youtube from "../../img/youtube.svg";
 
 class Profile extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (this.props.profile.profile === null && this.props.profile.loading) {
-      this.props.history.push("/not-found");
-    }
-  }
-
   componentDidMount() {
     const handle = this.props.match.params.handle;
     if (handle) {
-      this.props.getProfileByHandle(handle);
+      this.props.getProfileByHandle(handle, this.props.history);
     }
 
     this.props.getRecipes();
@@ -70,22 +64,38 @@ class Profile extends Component {
                 {profile.social ? (
                   <div className="profile__social">
                     {profile.social.facebook ? (
-                      <a href={profile.social.facebook}>
+                      <a
+                        href={profile.social.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img src={facebook} alt="facebook" />
                       </a>
                     ) : null}
                     {profile.social.twitter ? (
-                      <a href={profile.social.twitter}>
+                      <a
+                        href={profile.social.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img src={twitter} alt="twitter" />
                       </a>
                     ) : null}
                     {profile.social.instagram ? (
-                      <a href={profile.social.instagram}>
+                      <a
+                        href={profile.social.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img src={instagram} alt="instagram" />
                       </a>
                     ) : null}
                     {profile.social.youtube ? (
-                      <a href={profile.social.youtube}>
+                      <a
+                        href={profile.social.youtube}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img src={youtube} alt="youtube" />
                       </a>
                     ) : null}
@@ -114,7 +124,8 @@ class Profile extends Component {
 const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth,
-  recipe: state.recipe
+  recipe: state.recipe,
+  errors: state.errors
 });
 
 export default connect(

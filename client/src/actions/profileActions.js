@@ -46,7 +46,8 @@ export const createProfile = (profileData, history) => dispatch => {
 };
 
 //get profile by handle
-export const getProfileByHandle = handle => dispatch => {
+
+export const getProfileByHandle = (handle, history) => dispatch => {
   dispatch(setProfileLoading());
   axios
     .get(`/api/profile/handle/${handle}`)
@@ -56,12 +57,7 @@ export const getProfileByHandle = handle => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
-      dispatch({
-        type: GET_PROFILE,
-        payload: null
-      })
-    );
+    .catch(err => history.push("/not-found"));
 };
 
 // get profile bu id
